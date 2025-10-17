@@ -1,0 +1,96 @@
+.habit-tracker-container {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.habit-section {
+  margin-bottom: 40px;
+}
+
+.habit-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--text-normal);
+}
+
+.contribution-grid {
+  display: grid;
+  grid-template-columns: repeat(53, 14px);
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.contribution-cell {
+  width: 14px;
+  height: 14px;
+  background-color: var(--background-modifier-border);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contribution-cell:hover {
+  border: 1px solid var(--text-muted);
+}
+
+.contribution-cell.completed {
+  background-color: #26a641;
+}
+
+.contribution-cell.today {
+  border: 2px solid var(--text-accent);
+}
+
+.month-labels {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.month-label {
+  text-align: center;
+}
+
+.no-habits-message {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.settings-section {
+  padding: 20px 0;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.setting-item-info {
+  margin-bottom: 10px;
+}
+
+.setting-item-name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.setting-item-description {
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+.setting-item-control input[type="text"] {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+}
