@@ -35,6 +35,7 @@ export class HabitTrackerView extends ItemView {
   }
 
   async render(): Promise<void> {
+    console.log('RENDER START: selectedHabit =', this.selectedHabit, 'Type:', typeof this.selectedHabit);
     const container = this.containerEl.children[1] as HTMLElement;
     container.empty();
     container.addClass('habit-tracker-container');
@@ -42,15 +43,19 @@ export class HabitTrackerView extends ItemView {
     this.renderControls(container);
 
     const habits = this.plugin.dataStore.getHabits();
+    console.log('RENDER: Habits from store =', habits);
 
     if (habits.length === 0) {
       container.createEl('div', {
         text: 'No habits yet. Click "Add New Habit" to get started!',
         cls: 'no-habits-message'
       });
+      console.log('RENDER: No habits, exiting.');
       return;
     }
 
+    // If a habit is selected but no longer exists (e.g., deleted from another view),
+    // or if no habit is selected at all, default to the first one.
     if (!this.selectedHabit || !habits.includes(this.selectedHabit)) {
       if (habits.length > 0) {
         this.selectedHabit = habits[0];
@@ -135,11 +140,12 @@ export class HabitTrackerView extends ItemView {
         }
       });
 
+      console.log('Rendering Edit Button. selectedHabit:', this.selectedHabit, 'Type:', typeof this.selectedHabit);
       const editButton = controlsSection.createEl('button', {
         text: 'Edit',
-        cls: 'habit-control-button',
-        attr: { disabled: !this.selectedHabit }
+        cls: 'habit-control-button'
       });
+      editButton.disabled = !this.selectedHabit;
       editButton.addEventListener('click', () => {
         if (this.selectedHabit) {
           new EditHabitModal(this.app, this.plugin, this.selectedHabit, async (newName) => {
@@ -151,9 +157,9 @@ export class HabitTrackerView extends ItemView {
 
       const deleteButton = controlsSection.createEl('button', {
         text: 'Delete',
-        cls: 'habit-control-button',
-        attr: { disabled: !this.selectedHabit }
+        cls: 'habit-control-button'
       });
+      deleteButton.disabled = !this.selectedHabit;
       deleteButton.addEventListener('click', () => {
         if (this.selectedHabit) {
           new DeleteHabitModal(this.app, this.plugin, this.selectedHabit, async () => {

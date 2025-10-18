@@ -71,7 +71,15 @@ export default class HabitTrackerPlugin extends Plugin {
     const leaves = this.app.workspace.getLeavesOfType(VIEW_TYPE_HABIT_TRACKER);
     for (const leaf of leaves) {
       const view = leaf.view as HabitTrackerView;
-      await view.render();
+      const currentHabits = this.dataStore.getHabits();
+      const selectedHabit = (view as any).selectedHabit; // Access private member for check
+
+      // Only re-render if the selected habit is no longer valid
+      // or if no habit is selected and there are habits available.
+      // This prevents clobbering a valid state due to a background refresh.
+      if (!selectedHabit || !currentHabits.includes(selectedHabit)) {
+        await view.render();
+      }
     }
   }
 
