@@ -1,4 +1,4 @@
-# Habit Tracker Plugin for Obsidian
+# Greenit Plugin for Obsidian
 
 A feature-rich plugin for Obsidian that helps you track your daily habits with an intuitive and visually appealing interface.
 
